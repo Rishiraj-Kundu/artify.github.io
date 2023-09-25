@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artify(vR)</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <script type="module" src="js/nature.js"></script>
+    <script type="text/javascript" src="js/like.js"></script>
+  </head>
+  <body>
+    <div class="Img-details" id="fullImgDetailSection">
+      <img src="" id="fullImg" />
+      <div class="ImgData">
+        <p id="description"></p>
+        <p id="creator"></p>
+        <p id="location"></p>
+        <p id="date"></p>
+        <br />
+      </div>
+      <span onclick="closeFullImg()">X</span>
+    </div>
+    <div class="page-container">
+      <div class="nav">
+        <div class="logo">
+          <img src="images/photogallery.jpg" alt="logo" />
+          <div class="title">Artify</div>
+        </div>
+
+        <ul>
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+
+          <li>
+            <a href="Animals.html">Animals</a>
+          </li>
+
+          <li>
+            <a href="Sports.html">Sports</a>
+          </li>
+
+          <li class="active">
+            <a href="nature.html">Nature</a>
+          </li>
+
+          <li>
+            <a href="Sculptures.html">Sculptures</a>
+          </li>
+
+          <li>
+            <a href="Favourites.html">Favourites</a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        class="banner"
+        style="background-image: url('./images/forest-collage-4.jpg')"
+      >
+        <div class="heading">
+          <strong>Witness the candid shots of Mother Nature</strong>
+        </div>
+      </div>
+
+      <div id="gallery"></div>
+    </div>
+    <script>
+      let Imgdetails = document.getElementById("fullImgDetailSection");
+      let fullImg = document.getElementById("fullImg");
+      let desc = document.getElementById("description");
+      let creator = document.getElementById("creator");
+      let loc = document.getElementById("location");
+      let DoB = document.getElementById("date");
+      function openImg(id) {
+        Imgdetails.style.display = "flex";
+        fetch(
+          `https://api.unsplash.com/photos/${id}/?client_id=EtbAtAn46Sox_CWbI0s9ds5N7jBeTydjDoR2C6v01y8`
+        )
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (data) {
+            fullImg.src = data.urls.small;
+            desc.innerHTML = data.alt_description;
+            creator.innerHTML = "Created by: " + data.user.name;
+            loc.innerHTML = "Location: " + data.user.location;
+            DoB.innerHTML = "Created on: " + data.created_at;
+          });
+      }
+      function closeFullImg() {
+        Imgdetails.style.display = "none";
+      }
+    </script>
+  </body>
+</html>
